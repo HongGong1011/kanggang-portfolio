@@ -191,6 +191,192 @@
       filter: blur(2px);
     }
 
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-blue) 50%, var(--accent-green-dark) 100%);
+      background-size: 200% 100%;
+      border-radius: 0 3px 3px 0;
+      z-index: 10001;
+      transition: width 0.15s linear;
+      box-shadow: 0 0 12px rgba(180,225,96,0.5), 0 0 24px rgba(91,155,213,0.3);
+      animation: progressGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes progressGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Particle canvas */
+    .particles-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Card shine sweep */
+    .card-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255,255,255,0.25) 45%,
+        rgba(255,255,255,0.5) 50%,
+        rgba(255,255,255,0.25) 55%,
+        transparent 60%
+      );
+      transform: translateX(-100%) rotate(25deg);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .card-shine.shine-active::after {
+      animation: shineSweep 1.5s var(--ease-vision) forwards;
+    }
+
+    @keyframes shineSweep {
+      0% { transform: translateX(-100%) rotate(25deg); }
+      100% { transform: translateX(100%) rotate(25deg); }
+    }
+
+    /* Animated gradient border for hero */
+    .hero-card {
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius) + 2px);
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        var(--accent-green) 90deg,
+        var(--accent-blue) 180deg,
+        var(--accent-green-dark) 270deg,
+        transparent 360deg
+      );
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor;
+      padding: 2px;
+      opacity: 0;
+      transition: opacity 0.6s var(--ease-vision);
+      pointer-events: none;
+      z-index: 0;
+      animation: borderRotate 4s linear infinite;
+    }
+
+    .hero-card:hover::before {
+      opacity: 1;
+    }
+
+    @keyframes borderRotate {
+      0% { background: conic-gradient(from 0deg, transparent 0deg, var(--accent-green) 90deg, var(--accent-blue) 180deg, var(--accent-green-dark) 270deg, transparent 360deg); }
+      100% { background: conic-gradient(from 360deg, transparent 0deg, var(--accent-green) 90deg, var(--accent-blue) 180deg, var(--accent-green-dark) 270deg, transparent 360deg); }
+    }
+
+    /* Hero title gradient text flow */
+    .hero-title.display-xl {
+      background: linear-gradient(
+        90deg,
+        var(--text) 0%,
+        var(--accent-blue) 25%,
+        var(--accent-green-dark) 50%,
+        var(--accent-blue) 75%,
+        var(--text) 100%
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleFlow 6s ease-in-out infinite;
+    }
+
+    @keyframes titleFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Section title animated underline */
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+      transition: width 0.8s var(--ease-vision);
+    }
+
+    .section-title.animated::after {
+      width: 100%;
+    }
+
+    /* Glow ring on hover */
+    .glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(91,155,213,0.4);
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.6s var(--ease-vision);
+      box-shadow: 0 0 20px rgba(91,155,213,0.2);
+    }
+
+    .skill-item:hover .glow-ring,
+    .lang-item:hover .glow-ring {
+      opacity: 1;
+      transform: scale(3);
+      border-color: transparent;
+      box-shadow: 0 0 0 rgba(91,155,213,0);
+    }
+
+    /* Floating dust motes */
+    .dust-mote {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(91,155,213,0.4);
+      pointer-events: none;
+      z-index: 0;
+      animation: moteFloat linear infinite;
+      box-shadow: 0 0 6px rgba(91,155,213,0.3);
+    }
+
+    @keyframes moteFloat {
+      0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(100px) scale(0.3); opacity: 0; }
+    }
+
     /* Navigation */
     .nav {
       position: fixed;
@@ -1789,6 +1975,12 @@
     <div class="orb orb-3"></div>
   </div>
 
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Particle canvas -->
+  <canvas class="particles-canvas" id="particlesCanvas" aria-hidden="true"></canvas>
+
   <!-- Custom cursor -->
   <div class="vision-cursor" id="visionCursor" aria-hidden="true"></div>
   <div class="vision-cursor-trail" id="visionCursorTrail" aria-hidden="true"></div>
@@ -1824,7 +2016,7 @@
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="container">
-      <div class="card hero-card reveal">
+      <div class="card hero-card card-shine reveal">
         <div class="hero-visual">
           <img src="images/cover.jpg" alt="工业设计作品集封面">
         </div>
@@ -2848,6 +3040,154 @@
         }
       `;
       document.head.appendChild(style);
+
+      // ===== Scroll Progress Bar =====
+      const scrollBar = document.getElementById('scrollProgress');
+      if (scrollBar) {
+        window.addEventListener('scroll', () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+          scrollBar.style.width = progress + '%';
+        }, { passive: true });
+      }
+
+      // ===== Particle System =====
+      const canvas = document.getElementById('particlesCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const maxParticles = 50;
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+          constructor() {
+            this.reset();
+            this.y = Math.random() * canvas.height;
+          }
+          reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height + 10;
+            this.size = Math.random() * 2.5 + 0.5;
+            this.speedY = Math.random() * 0.4 + 0.15;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.2;
+            this.wobble = Math.random() * Math.PI * 2;
+            this.wobbleSpeed = (Math.random() - 0.5) * 0.02;
+            this.color = Math.random() > 0.5 
+              ? `rgba(180,225,96,${this.opacity})` 
+              : `rgba(91,155,213,${this.opacity})`;
+            this.life = 0;
+            this.maxLife = 300 + Math.random() * 400;
+          }
+          update() {
+            this.life++;
+            this.y -= this.speedY;
+            this.wobble += this.wobbleSpeed;
+            this.x += this.speedX + Math.sin(this.wobble) * 0.3;
+
+            if (this.life > this.maxLife || this.y < -20) {
+              this.reset();
+            }
+          }
+          draw() {
+            const alpha = this.life < 50 
+              ? this.opacity * (this.life / 50) 
+              : this.life > this.maxLife - 50 
+                ? this.opacity * ((this.maxLife - this.life) / 50) 
+                : this.opacity;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color.replace(/[\d.]+\)$/, alpha + ')');
+            ctx.fill();
+            // Glow
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+            ctx.fillStyle = this.color.replace(/[\d.]+\)$/, alpha * 0.1 + ')');
+            ctx.fill();
+          }
+        }
+
+        for (let i = 0; i < maxParticles; i++) {
+          particles.push(new Particle());
+        }
+
+        function animateParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => {
+            p.update();
+            p.draw();
+          });
+          requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+      }
+
+      // ===== Card Shine Sweep =====
+      function triggerShine(el) {
+        if (!el.classList.contains('card-shine')) return;
+        el.classList.remove('shine-active');
+        void el.offsetWidth;
+        el.classList.add('shine-active');
+        setTimeout(() => el.classList.remove('shine-active'), 1500);
+      }
+
+      document.querySelectorAll('.card-shine').forEach(card => {
+        card.addEventListener('mouseenter', () => triggerShine(card));
+      });
+
+      // Periodic shine on project cards
+      setInterval(() => {
+        const cards = document.querySelectorAll('.card-shine');
+        const randomCard = cards[Math.floor(Math.random() * cards.length)];
+        if (randomCard && !randomCard.matches(':hover')) {
+          triggerShine(randomCard);
+        }
+      }, 5000);
+
+      // ===== Section Title Animated Underline =====
+      const titleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('.section-title').forEach(title => {
+        titleObserver.observe(title);
+      });
+
+      // ===== Dust Motes =====
+      function createDustMote() {
+        const mote = document.createElement('div');
+        mote.className = 'dust-mote';
+        mote.style.left = Math.random() * 100 + '%';
+        mote.style.top = '100%';
+        mote.style.animationDuration = (Math.random() * 8 + 6) + 's';
+        mote.style.animationDelay = '0s';
+        mote.style.width = (Math.random() * 3 + 1) + 'px';
+        mote.style.height = mote.style.width;
+        document.body.appendChild(mote);
+        setTimeout(() => mote.remove(), 15000);
+      }
+
+      setInterval(() => {
+        if (document.hidden) return;
+        createDustMote();
+        if (Math.random() > 0.5) createDustMote();
+      }, 2000);
+
+      // Initial burst
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => createDustMote(), i * 400);
+      }
     })();
   </script>
 </body>
